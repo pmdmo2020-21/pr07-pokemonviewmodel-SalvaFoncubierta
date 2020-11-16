@@ -72,7 +72,7 @@ class SelectionActivity : AppCompatActivity() {
                 "SelectionActivity needs to receive pokemon id as extra")
         }
         screen = intent.getIntExtra(SCREEN,1)
-        viewModel.pokemon = intent.getParcelableExtra(SELECTEDPOKEMON)
+        viewModel.changePokemon(intent.getParcelableExtra(SELECTEDPOKEMON)!!)
     }
 
 }

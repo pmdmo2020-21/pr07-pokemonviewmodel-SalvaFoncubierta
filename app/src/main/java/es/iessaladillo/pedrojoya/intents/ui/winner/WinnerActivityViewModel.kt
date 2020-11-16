@@ -27,7 +27,7 @@ class WinnerActivityViewModel (savedStateHandle: SavedStateHandle) : ViewModel()
     }
 
     fun getIntentData(intent : Intent) {
-        if (intent == null || !intent.hasExtra(WINNERPOKEMON)) {
+        if (!intent.hasExtra(WINNERPOKEMON)) {
             throw RuntimeException(
                 "WinnerActivity needs to receive a pokemon as extra")
         }

@@ -1,16 +1,20 @@
 package es.iessaladillo.pedrojoya.intents.ui.selection
 
 import android.widget.RadioButton
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import es.iessaladillo.pedrojoya.intents.data.local.Database
 import es.iessaladillo.pedrojoya.intents.data.local.model.Pokemon
 
 class SelectionActivityViewModel : ViewModel() {
 
-    var pokemon : Pokemon? = null
+    private val _pokemon : MutableLiveData<Pokemon> = MutableLiveData(Database.getRandomPokemon())
+    val pokemon: LiveData<Pokemon> get() = _pokemon
 
     fun getSelectedButton(array: Array <RadioButton>){
         for (compoundButton in array){
-            if(compoundButton.tag == pokemon){
+            if(compoundButton.tag == pokemon.value){
                 compoundButton.isChecked = true
             }
         }
@@ -18,12 +22,16 @@ class SelectionActivityViewModel : ViewModel() {
 
     fun selectPokemon( radioButton: RadioButton, array: Array <RadioButton>) {
         radioButton.isChecked = true
-        pokemon = radioButton.tag as Pokemon
+        _pokemon.value = radioButton.tag as Pokemon
         for (compoundButton in array){
             if(compoundButton != radioButton){
                 compoundButton.isChecked = false
             }
         }
+    }
+
+    fun changePokemon(pokemon: Pokemon) {
+        _pokemon.value = pokemon
     }
 
 }
