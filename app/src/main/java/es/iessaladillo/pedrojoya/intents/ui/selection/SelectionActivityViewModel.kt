@@ -9,12 +9,11 @@ import es.iessaladillo.pedrojoya.intents.data.local.model.Pokemon
 
 class SelectionActivityViewModel : ViewModel() {
 
-    private val _pokemon : MutableLiveData<Pokemon> = MutableLiveData(Database.getRandomPokemon())
-    val pokemon: LiveData<Pokemon> get() = _pokemon
+    var pokemon : Pokemon? = null
 
     fun getSelectedButton(array: Array <RadioButton>){
         for (compoundButton in array){
-            if(compoundButton.tag == pokemon.value){
+            if(compoundButton.tag == pokemon){
                 compoundButton.isChecked = true
             }
         }
@@ -22,16 +21,12 @@ class SelectionActivityViewModel : ViewModel() {
 
     fun selectPokemon( radioButton: RadioButton, array: Array <RadioButton>) {
         radioButton.isChecked = true
-        _pokemon.value = radioButton.tag as Pokemon
+        pokemon = radioButton.tag as Pokemon
         for (compoundButton in array){
             if(compoundButton != radioButton){
                 compoundButton.isChecked = false
             }
         }
-    }
-
-    fun changePokemon(pokemon: Pokemon) {
-        _pokemon.value = pokemon
     }
 
 }
